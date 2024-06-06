@@ -102,11 +102,12 @@ const setAtualizarProduto = async function(id, contentType, dadosProdutos){
                 
                 return message.ERROR_NOT_FOUND
             } else {
-    
+                
                 if (dadosProdutos.nomeProduto == '' || dadosProdutos.nomeProduto == undefined || dadosProdutos.nomeProduto.length > 20 ||
             dadosProdutos.descricaoProduto == '' || dadosProdutos.descricaoProduto == undefined || dadosProdutos.descricaoProduto.length > 100 ||
             dadosProdutos.precoProduto == '' || dadosProdutos.precoProduto == undefined || dadosProdutos.precoProduto.length > 10 || 
             dadosProdutos.fotoProduto == '' || dadosProdutos.fotoProduto == undefined || dadosProdutos.fotoProduto.length > 200 ) {
+                    
                     
                     return message.ERROR_REQUIRED_FIELDS
                 } else {
@@ -136,13 +137,47 @@ const setAtualizarProduto = async function(id, contentType, dadosProdutos){
     }
     
     } catch (error) {
+      
+        
         return message.ERROR_INTERNAL_SERVER
     }
     }
+
+    
+const getBuscarProdutoId = async function (id) {
+
+ 
+    let idProduto = id
+    let produtoJSON = {}
+
+    if (idProduto == '' || idProduto == undefined || isNaN(idProduto)) {
+        return message.ERROR_INVALID_ID
+    } else {
+        let dadosProduto = await produtosDAO.selectByIdProdutos(idProduto)
+
+        if (dadosProduto) {
+            if (dadosProduto.length) {
+                produtoJSON.produtos = dadosProduto
+                produtoJSON.status_code = 200
+
+                return produtoJSON 
+
+            } else {
+                return message.ERROR_NOT_FOUND 
+            }
+
+        } else {
+            return message.ERROR_INTERNAL_SERVER_DB 
+        }
+    }
+
+
+}
     
     module.exports = {
         setAtualizarProduto,
         setInserirProdutos,
         getListarProdutos,
-        setExcluirProduto
+        setExcluirProduto,
+        getBuscarProdutoId
     }
