@@ -110,6 +110,126 @@ app.put('/v1/lanchonete/editeIngrediente/:id', cors(), async function(request, r
     response.json(resultDados)
 })
 
+/*********************************************************************************************************** */
+
+/*****************************************************Produtos****************************************** */
+app.get('/v1/lanchonete/produtos', cors(), async function(request,response,next){
+    let allProdutos = await controllerprodutos.getListarProdutos()
+
+    response.status(allProdutos.status_code)
+    response.json(allProdutos)
+})
+
+app.post('/v1/lanchonete/produto', cors(), bodyParserJSON, async function(request,response,next){
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultDados = await controllerprodutos.setInserirProdutos(dadosBody,contentType)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.delete('/v1/lanchonete/produto/:id', cors(), bodyParserJSON, async function(request, response, next){
+    let idProduto = request.params.id
+    let deleteProduto = await controllerprodutos.setExcluirProduto(idProduto)
+
+    response.status(deleteProduto.status_code)
+    response.json(deleteProduto)
+})
+
+app.put('/v1/lanchonete/editeProduto/:id', cors(), async function(request, response, next){
+    let contentType = request.headers['content-type']
+    let id_produto = request.params.id
+
+    let dadosBody = request.body
+
+    let resultDados = await controllerprodutos.setAtualizarProduto(id_produto, contentType, dadosBody)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+/*********************************************************************************************************** */
+
+/*****************************************************funcionarios****************************************** */
+app.get('/v1/lanchonete/funcionarios', cors(), async function(request,response,next){
+    let allfuncionarios = await controllerfuncionarios.getListarFuncionarios()
+
+    response.status(allfuncionarios.status_code)
+    response.json(allfuncionarios)
+})
+
+app.post('/v1/lanchonete/funcionario', cors(), bodyParserJSON, async function(request,response,next){
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultDados = await controllerfuncionarios.setInserirFuncionarios(dadosBody,contentType)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.delete('/v1/lanchonete/funcionario/:id', cors(), bodyParserJSON, async function(request, response, next){
+    let idFuncionarios = request.params.id
+    let deleteFuncionario = await controllerfuncionarios.setExcluirFuncionario(idFuncionarios)
+
+    response.status(deleteFuncionario.status_code)
+    response.json(deleteFuncionario)
+})
+
+app.put('/v1/lanchonete/editeFuncionario/:id', cors(), async function(request, response, next){
+    let contentType = request.headers['content-type']
+    let id_funcionario = request.params.id
+
+    let dadosBody = request.body
+
+    let resultDados = await controllerfuncionarios.setAtualizarFuncionario(id_funcionario, contentType, dadosBody)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+/*********************************************************************************************************** */
+
+/*****************************************************promocoes****************************************** */
+app.get('/v1/lanchonete/promocoes', cors(), async function(request,response,next){
+    let allPromocoes = await controllerPromocoes.getListarPromocoes()
+
+    response.status(allPromocoes.status_code)
+    response.json(allPromocoes)
+})
+
+app.post('/v1/lanchonete/promocao', cors(), bodyParserJSON, async function(request,response,next){
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultDados = await controllerPromocoes.setInserirPromocoes(dadosBody,contentType)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.delete('/v1/lanchonete/promocao/:id', cors(), bodyParserJSON, async function(request, response, next){
+    let idPromocoes = request.params.id
+    let deletePromocao = await controllerPromocoes.setExcluirPromocao(idPromocoes)
+
+    response.status(deletePromocao.status_code)
+    response.json(deletePromocao)
+})
+
+app.put('/v1/lanchonete/editePromocao/:id', cors(), async function(request, response, next){
+    let contentType = request.headers['content-type']
+    let id_promocao = request.params.id
+
+    let dadosBody = request.body
+
+    let resultDados = await controllerPromocoes.setAtualizarPromocao(id_promocao, contentType, dadosBody)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
 app.listen(8080, function(){
     console.log('API funcionando e aguardando requisições')
 })
