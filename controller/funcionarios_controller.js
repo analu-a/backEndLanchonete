@@ -52,8 +52,8 @@ const setInserirFuncionarios = async function( funcionarios, contentType){
             let resultfuncionarios = {}
 
             if (funcionarios.nomefuncionario == '' || funcionarios.nomefuncionario == undefined || funcionarios.nomefuncionario.length > 250 ||
-            funcionarios.emailFuncionario == '' || funcionarios.emailFuncionario == undefined || funcionarios.emailFuncionario.length > 8 ||
-            funcionarios.senhaFuncionario == '' || funcionarios.senhaFuncionario == undefined || funcionarios.senhaFuncionario.length > 60 ){
+            funcionarios.emailFuncionario == '' || funcionarios.emailFuncionario == undefined || funcionarios.emailFuncionario.length > 60 ||
+            funcionarios.senhaFuncionario == '' || funcionarios.senhaFuncionario == undefined || funcionarios.senhaFuncionario.length > 8 ){
                 return message.ERROR_REQUIRED_FIELDS
             } else {
                 
@@ -103,8 +103,8 @@ const setAtualizarFuncionario = async function(id, contentType, dadosFuncionario
             } else {
     
                 if (dadosFuncionarios.nomefuncionario == '' || dadosFuncionarios.nomefuncionario == undefined || dadosFuncionarios.nomefuncionario.length > 250 ||
-            dadosFuncionarios.emailFuncionario == '' || dadosFuncionarios.emailFuncionario == undefined || dadosFuncionarios.emailFuncionario.length > 8 ||
-            dadosFuncionarios.senhaFuncionario == '' || dadosFuncionarios.senhaFuncionario == undefined || dadosFuncionarios.senhaFuncionario.length > 60 ) {
+            dadosFuncionarios.emailFuncionario == '' || dadosFuncionarios.emailFuncionario == undefined || dadosFuncionarios.emailFuncionario.length > 60 ||
+            dadosFuncionarios.senhaFuncionario == '' || dadosFuncionarios.senhaFuncionario == undefined || dadosFuncionarios.senhaFuncionario.length > 8 ) {
                     
                     return message.ERROR_REQUIRED_FIELDS
                 } else {
