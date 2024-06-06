@@ -58,3 +58,11 @@ const retornarIdDoUltimoEnderecoInserido = async function(){
         return false
     }
 }
+module.exports = {
+    pegarEnderecos,
+    atualizarEnderecos,
+    deletarEnderecos,
+    inserirEnderecos,
+    buscarEnderecosPeloId,
+    retornarIdDoUltimoEnderecoInserido
+}

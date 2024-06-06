@@ -1,5 +1,5 @@
-const enderecosModelDAO = require("../model/DAO/endereco.js")
-const enderecosModuloConfig = require("../modulo/config.js")
+const enderecosModelDAO = require("../modulo/DAO/endereco.js")
+const enderecosModuloConfig = require("../model/config.js")
 const pegarEnderecos = async function(){
   let enderecosJSON = {}
   const resultadoEnderecos = await enderecosModelDAO.pegarEnderecos()
@@ -14,5 +14,13 @@ const pegarEnderecos = async function(){
     }
   }else{
     return enderecosModuloConfig.ERROR_INTERNAL_SERVER_DB
+  }
+}
+const atualizarEnderecos = async function(enderecos, idEnderecos){
+  let enderecosJSON = {}
+  if(idEnderecos == " " || idEnderecos == undefined || isNaN(idEnderecos)){
+    return enderecosModuloConfig.ERROR_INVALID_ID
+  }else{
+    const enderecosPeloId = await
   }
 }
