@@ -229,6 +229,10 @@ app.put('/v1/lanchonete/editePromocao/:id', cors(), async function(request, resp
     response.status(resultDados.status_code)
     response.json(resultDados)
 })
+/***********************************************************************************************************/
+/*****************************************************endereco**********************************************/
+app.get("/v1/Lanchonete/enderecos", cors(), async function(request, response, next){
+    let enderecos = await 
 
 app.listen(8080, function(){
     console.log('API funcionando e aguardando requisições')
