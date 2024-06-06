@@ -86,11 +86,16 @@ app.post('/v1/lanchonete/ingrediente', cors(), bodyParserJSON, async function(re
 
     let resultDados = await controllerIngredientes.inserirIngrediente(dadosBody,contentType)
 
+
+    console.log(resultDados.status_code);
+    
+
     response.status(resultDados.status_code)
     response.json(resultDados)
+    
 })
 
-app.delete('/v1/lanchonete/ingrediente/:id', cors(), bodyParserJSON, async function(request, response, next){
+app.delete('/v1/lanchonete/ingrediente/:id', cors(), async function(request, response, next){
     let idIngrediente = request.params.id
     let deleteIngrediente = await controllerIngredientes.setExcluirIngredientes(idIngrediente)
 
@@ -98,16 +103,24 @@ app.delete('/v1/lanchonete/ingrediente/:id', cors(), bodyParserJSON, async funct
     response.json(deleteIngrediente)
 })
 
-app.put('/v1/lanchonete/editeIngrediente/:id', cors(), async function(request, response, next){
+app.put('/v1/lanchonete/editeIngrediente/:id', cors(), bodyParserJSON, async function(request, response, next){
     let contentType = request.headers['content-type']
     let id_ingredientes = request.params.id
 
     let dadosBody = request.body
-
     let resultDados = await controllerIngredientes.setAtualizarIingrediente(id_ingredientes, contentType, dadosBody)
-
     response.status(resultDados.status_code)
     response.json(resultDados)
+})
+
+
+app.get('/v1/lanchonete/ingredienteId/:id', cors(), async function(request, response, next){
+    let idIngrediente = request.params.id
+
+    let dadosIngrediente= await controllerIngredientes.getBuscarIngredienteId(idIngrediente)
+
+    response.status(dadosIngrediente.status_code)
+    response.json(dadosIngrediente)
 })
 
 /*********************************************************************************************************** */
