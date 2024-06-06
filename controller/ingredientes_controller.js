@@ -57,9 +57,11 @@ const inserirIngrediente = async function (dadosIngredientes, contentType){
             if (dadosIngredientes.nome_ingrediente == '' || dadosIngredientes.nome_ingrediente == undefined || dadosIngredientes.nome_ingrediente.length >20||
             dadosIngredientes.quantidade_ingredientes == '' || dadosIngredientes.quantidade_ingredientes == undefined || dadosIngredientes.quantidade_ingredientes.length >10||
             dadosIngredientes.marca_ingredientes == '' || dadosIngredientes.marca_ingredientes == undefined || dadosIngredientes.marca_ingredientes.length >45||
-            dadosIngredientes.data_validade == '' || dadosIngredientes.data_validade == undefined || dadosIngredientes.data_validade.length >8||
+            dadosIngredientes.data_validade == '' || dadosIngredientes.data_validade == undefined || dadosIngredientes.data_validade.length >10||
             dadosIngredientes.foto_ingrediente == '' || dadosIngredientes.foto_ingrediente == undefined || dadosIngredientes.foto_ingrediente.length >200) 
             {
+
+                
                 return message.ERROR_REQUIRED_FIELDS
             } else {
 
@@ -75,7 +77,7 @@ const inserirIngrediente = async function (dadosIngredientes, contentType){
 
                     resultDadosIncredientes.ingredientes.id = await returnId
 
-                    return dadosIngredientes
+                    return resultDadosIncredientes
                 } else {
                     return message.ERROR_INTERNAL_SERVER_DB
                 }
@@ -103,12 +105,15 @@ const setAtualizarIingrediente = async function (id, contentType, dadosIngredien
                 if (validaId== false) {
                     return message.ERROR_NOT_FOUND
                 } else {
+                    console.log(dadosIngredientes);
                     if (dadosIngredientes.nome_ingrediente == '' || dadosIngredientes.nome_ingrediente == undefined || dadosIngredientes.nome_ingrediente.length >20||
                     dadosIngredientes.quantidade_ingredientes == '' || dadosIngredientes.quantidade_ingredientes == undefined || dadosIngredientes.quantidade_ingredientes.length >10||
                     dadosIngredientes.marca_ingredientes == '' || dadosIngredientes.marca_ingredientes == undefined || dadosIngredientes.marca_ingredientes.length >45||
-                    dadosIngredientes.data_validade == '' || dadosIngredientes.data_validade == undefined || dadosIngredientes.data_validade.length >8||
+                    dadosIngredientes.data_validade == '' || dadosIngredientes.data_validade == undefined || dadosIngredientes.data_validade.length >10||
                     dadosIngredientes.foto_ingrediente == '' || dadosIngredientes.foto_ingrediente == undefined || dadosIngredientes.foto_ingrediente.length >200) 
                     {
+                
+                        
                         return message.ERROR_REQUIRED_FIELDS
                     } else {
                       let novoIngrediente = await ingredientesDAO.updateIngrediente(dadosIngredientes, idIngrediente)
@@ -130,13 +135,45 @@ const setAtualizarIingrediente = async function (id, contentType, dadosIngredien
             return message.ERROR_CONTENT_TYPE
         }
     } catch (error) {
+        
         return message.ERROR_INTERNAL_SERVER
     }
+}
+
+const getBuscarIngredienteId = async function (id) {
+
+ 
+    let idIngrediente = id
+    let ingredienteJSON = {}
+
+    if (idIngrediente == '' || idIngrediente == undefined || isNaN(idIngrediente)) {
+        return message.ERROR_INVALID_ID
+    } else {
+        let dadosIngrediente = await ingredientesDAO.selectByIdIngredientes(idIngrediente)
+
+        if (dadosIngrediente) {
+            if (dadosIngrediente.length) {
+                ingredienteJSON.ingredientes = dadosIngrediente
+                ingredienteJSON.status_code = 200
+
+                return ingredienteJSON 
+
+            } else {
+                return message.ERROR_NOT_FOUND 
+            }
+
+        } else {
+            return message.ERROR_INTERNAL_SERVER_DB 
+        }
+    }
+
+
 }
 
 module.exports ={
     getListarIngredientes,
     setAtualizarIingrediente,
     setExcluirIngredientes,
-    inserirIngrediente
+    inserirIngrediente,
+    getBuscarIngredienteId
 }

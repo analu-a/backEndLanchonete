@@ -5,10 +5,8 @@ const selectAllCate = async function(){
     try {
         let sql = 'select * from categorias order by idCategorias desc'
         let rsCate = await prisma.$queryRawUnsafe(sql)
-        console.log(rsCate)
         return rsCate
     } catch (error) {
-        console.log(error)
         return false
     }
 }

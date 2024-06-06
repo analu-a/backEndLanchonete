@@ -64,14 +64,16 @@ const updateIngrediente = async function (dadosIngredientes, id){
         let sql 
 
         sql = `update ingredientes set 
-        nome_ingredientes = '${dadosIngredientes.dados_ingredientes}',
+        nome_ingrediente = '${dadosIngredientes.nome_ingrediente}',
         quantidade_ingredientes = '${dadosIngredientes.quantidade_ingredientes}',
         marca_ingredientes = '${dadosIngredientes.marca_ingredientes}',
         data_validade = '${dadosIngredientes.data_validade}',
         foto_ingrediente = '${dadosIngredientes.foto_ingrediente}'
         where id_ingredientes = ${id}`
 
+        
         let result = await prisma.$executeRawUnsafe(sql)
+
 
         if (result) {
             return true 

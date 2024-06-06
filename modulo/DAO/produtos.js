@@ -92,6 +92,7 @@ const atualizarProdutos = async function(dadosProdutos, idProduto){
            
         where idProduto = ${idProduto}`
 
+
         let result = await prisma.$executeRawUnsafe(sql)
 
         if (result) {
