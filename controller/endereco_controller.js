@@ -4,12 +4,15 @@ const pegarEnderecos = async function(){
   let enderecosJSON = {}
   const resultadoEnderecos = await enderecosModelDAO.pegarEnderecos()
   if(resultadoEnderecos){
-    if(resultadoEnderecos.length > 0){
+    if(resultadoEnderecos.lenght > 0){
       enderecosJSON.enderecos = resultadoEnderecos
       enderecosJSON.quantidade = resultadoEnderecos.lenght
       enderecosJSON.status = 200
+      return enderecosJSON
     }else{
       return enderecosModuloConfig.ERROR_NOT_FOUND
     }
   }else{
-    return enderecosModuloConfig.ERROR_
+    return enderecosModuloConfig.ERROR_INTERNAL_SERVER_DB
+  }
+}
