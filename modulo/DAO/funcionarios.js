@@ -42,12 +42,12 @@ const inserirFuncionarios = async function(funcionarios){
 
         sql = `insert into funcionarios(
             nomeFuncionario,
-            emailFuncionario,
-            senhaFuncionario
+            senhaFuncionario,
+            emailFuncionario
         ) values (
             '${funcionarios.nomeFuncionario}',
-            '${funcionarios.emailFuncionario}',
-            '${funcionarios.senhaFuncionario}'
+            '${funcionarios.senhaFuncionario}',
+            '${funcionarios.emailFuncionario}'
         )` 
 
         let result = await prisma.$executeRawUnsafe(sql)
@@ -82,10 +82,10 @@ const returnId = async function (){
 const atualizarFuncionario = async function(dadosFuncionario, idFuncionarios){
     try {
         let sql 
-        sql = `update produtos set 
+        sql = `update funcionarios set 
         nomeFuncionario= '${dadosFuncionario.nomeFuncionario}',
-        emailFuncionario= '${dadosFuncionario. emailFuncionario}',
-        senhaFuncionario= '${dadosFuncionario.senhaFuncionario}'
+        senhaFuncionario= '${dadosFuncionario.senhaFuncionario}',
+        emailFuncionario= '${dadosFuncionario. emailFuncionario}'
            
         where idFuncionarios = ${idFuncionarios}`
 

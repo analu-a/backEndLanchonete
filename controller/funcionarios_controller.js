@@ -50,10 +50,9 @@ const setInserirFuncionarios = async function( funcionarios, contentType){
         if (String(contentType).toLowerCase() == 'application/json') {
             
             let resultfuncionarios = {}
-
-            if (funcionarios.nomefuncionario == '' || funcionarios.nomefuncionario == undefined || funcionarios.nomefuncionario.length > 250 ||
-            funcionarios.emailFuncionario == '' || funcionarios.emailFuncionario == undefined || funcionarios.emailFuncionario.length > 60 ||
-            funcionarios.senhaFuncionario == '' || funcionarios.senhaFuncionario == undefined || funcionarios.senhaFuncionario.length > 8 ){
+            if (funcionarios.nomeFuncionario == '' || funcionarios.nomeFuncionario == undefined || funcionarios.nomeFuncionario.length > 250 ||
+            funcionarios.senhaFuncionario == '' || funcionarios.senhaFuncionario == undefined || funcionarios.senhaFuncionario.length > 8 ||
+            funcionarios.emailFuncionario == '' || funcionarios.emailFuncionario == undefined || funcionarios.emailFuncionario.length > 60 ){
                 return message.ERROR_REQUIRED_FIELDS
             } else {
                 
@@ -68,7 +67,7 @@ const setInserirFuncionarios = async function( funcionarios, contentType){
                     resultfuncionarios.funcionarios = funcionarios
 
                     resultfuncionarios.funcionarios.id = await returnId
-
+                  
                     return resultfuncionarios
                 } else {
                     return message.ERROR_INTERNAL_SERVER_DB
@@ -101,11 +100,9 @@ const setAtualizarFuncionario = async function(id, contentType, dadosFuncionario
                 
                 return message.ERROR_NOT_FOUND
             } else {
-    
-                if (dadosFuncionarios.nomefuncionario == '' || dadosFuncionarios.nomefuncionario == undefined || dadosFuncionarios.nomefuncionario.length > 250 ||
-            dadosFuncionarios.emailFuncionario == '' || dadosFuncionarios.emailFuncionario == undefined || dadosFuncionarios.emailFuncionario.length > 60 ||
-            dadosFuncionarios.senhaFuncionario == '' || dadosFuncionarios.senhaFuncionario == undefined || dadosFuncionarios.senhaFuncionario.length > 8 ) {
-                    
+                if (dadosFuncionarios.nomeFuncionario == '' || dadosFuncionarios.nomeFuncionario == undefined || dadosFuncionarios.nomeFuncionario.length > 250 ||
+            dadosFuncionarios.senhaFuncionario == '' || dadosFuncionarios.senhaFuncionario == undefined || dadosFuncionarios.senhaFuncionario.length > 8 ||
+            dadosFuncionarios.emailFuncionario == '' || dadosFuncionarios.emailFuncionario == undefined || dadosFuncionarios.emailFuncionario.length > 60) {          
                     return message.ERROR_REQUIRED_FIELDS
                 } else {
     
