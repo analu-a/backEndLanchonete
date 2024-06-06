@@ -50,12 +50,9 @@ const setInserirFuncionarios = async function( funcionarios, contentType){
         if (String(contentType).toLowerCase() == 'application/json') {
             
             let resultfuncionarios = {}
-
             if (funcionarios.nomeFuncionario == '' || funcionarios.nomeFuncionario == undefined || funcionarios.nomeFuncionario.length > 250 ||
             funcionarios.senhaFuncionario == '' || funcionarios.senhaFuncionario == undefined || funcionarios.senhaFuncionario.length > 8 ||
             funcionarios.emailFuncionario == '' || funcionarios.emailFuncionario == undefined || funcionarios.emailFuncionario.length > 60 ){
-               
-                
                 return message.ERROR_REQUIRED_FIELDS
             } else {
                 
@@ -103,11 +100,9 @@ const setAtualizarFuncionario = async function(id, contentType, dadosFuncionario
                 
                 return message.ERROR_NOT_FOUND
             } else {
-    
                 if (dadosFuncionarios.nomeFuncionario == '' || dadosFuncionarios.nomeFuncionario == undefined || dadosFuncionarios.nomeFuncionario.length > 250 ||
             dadosFuncionarios.senhaFuncionario == '' || dadosFuncionarios.senhaFuncionario == undefined || dadosFuncionarios.senhaFuncionario.length > 8 ||
-            dadosFuncionarios.emailFuncionario == '' || dadosFuncionarios.emailFuncionario == undefined || dadosFuncionarios.emailFuncionario.length > 60) {
-                    
+            dadosFuncionarios.emailFuncionario == '' || dadosFuncionarios.emailFuncionario == undefined || dadosFuncionarios.emailFuncionario.length > 60) {          
                     return message.ERROR_REQUIRED_FIELDS
                 } else {
     
