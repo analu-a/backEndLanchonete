@@ -21,6 +21,6 @@ const atualizarEnderecos = async function(enderecos, idEnderecos){
   if(idEnderecos == " " || idEnderecos == undefined || isNaN(idEnderecos)){
     return enderecosModuloConfig.ERROR_INVALID_ID
   }else{
-    const enderecosPeloId = 0
+    const enderecosPeloId = await enderecosModelDAO.atualizarEnderecos()
   }
 }
