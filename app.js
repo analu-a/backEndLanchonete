@@ -143,7 +143,7 @@ app.post('/v1/lanchonete/produto', cors(), bodyParserJSON, async function(reques
     response.json(resultDados)
 })
 
-app.delete('/v1/lanchonete/produto/:id', cors(), bodyParserJSON, async function(request, response, next){
+app.delete('/v1/lanchonete/produto/:id', cors(), async function(request, response, next){
     let idProduto = request.params.id
     let deleteProduto = await controllerprodutos.setExcluirProduto(idProduto)
 
@@ -151,7 +151,7 @@ app.delete('/v1/lanchonete/produto/:id', cors(), bodyParserJSON, async function(
     response.json(deleteProduto)
 })
 
-app.put('/v1/lanchonete/editeProduto/:id', cors(), async function(request, response, next){
+app.put('/v1/lanchonete/editeProduto/:id', cors(), bodyParserJSON, async function(request, response, next){
     let contentType = request.headers['content-type']
     let id_produto = request.params.id
 
@@ -162,6 +162,17 @@ app.put('/v1/lanchonete/editeProduto/:id', cors(), async function(request, respo
     response.status(resultDados.status_code)
     response.json(resultDados)
 })
+
+
+app.get('/v1/lanchonete/produtoId/:id', cors(), async function(request, response, next){
+    let idProduto = request.params.id
+
+    let dadosProdutos= await controllerprodutos.getBuscarProdutoId(idProduto)
+
+    response.status(dadosProdutos.status_code)
+    response.json(dadosProdutos)
+})
+
 
 /*********************************************************************************************************** */
 
@@ -183,7 +194,7 @@ app.post('/v1/lanchonete/funcionario', cors(), bodyParserJSON, async function(re
     response.json(resultDados)
 })
 
-app.delete('/v1/lanchonete/funcionario/:id', cors(), bodyParserJSON, async function(request, response, next){
+app.delete('/v1/lanchonete/funcionario/:id', cors(), async function(request, response, next){
     let idFuncionarios = request.params.id
     let deleteFuncionario = await controllerfuncionarios.setExcluirFuncionario(idFuncionarios)
 
@@ -191,7 +202,7 @@ app.delete('/v1/lanchonete/funcionario/:id', cors(), bodyParserJSON, async funct
     response.json(deleteFuncionario)
 })
 
-app.put('/v1/lanchonete/editeFuncionario/:id', cors(), async function(request, response, next){
+app.put('/v1/lanchonete/editeFuncionario/:id', cors(), bodyParserJSON, async function(request, response, next){
     let contentType = request.headers['content-type']
     let id_funcionario = request.params.id
 
@@ -223,7 +234,7 @@ app.post('/v1/lanchonete/promocao', cors(), bodyParserJSON, async function(reque
     response.json(resultDados)
 })
 
-app.delete('/v1/lanchonete/promocao/:id', cors(), bodyParserJSON, async function(request, response, next){
+app.delete('/v1/lanchonete/promocao/:id', cors(), async function(request, response, next){
     let idPromocoes = request.params.id
     let deletePromocao = await controllerPromocoes.setExcluirPromocao(idPromocoes)
 
@@ -231,7 +242,7 @@ app.delete('/v1/lanchonete/promocao/:id', cors(), bodyParserJSON, async function
     response.json(deletePromocao)
 })
 
-app.put('/v1/lanchonete/editePromocao/:id', cors(), async function(request, response, next){
+app.put('/v1/lanchonete/editePromocao/:id', cors(), bodyParserJSON, async function(request, response, next){
     let contentType = request.headers['content-type']
     let id_promocao = request.params.id
 
