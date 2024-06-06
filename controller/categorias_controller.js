@@ -5,7 +5,6 @@ const getListarCate = async function(){
     let JSONcate = {}
 
     let cateDados = await DAOcate.selectAllCate()
-    
     if (cateDados) {
         if (cateDados.length) {
             JSONcate.nomeCategoria = cateDados
