@@ -258,6 +258,59 @@ app.put('/v1/lanchonete/editePromocao/:id', cors(), bodyParserJSON, async functi
 app.get("/v1/Lanchonete/enderecos", cors(), async function(request, response, next){
     let enderecos = await 
 
+/***************************************************** combos ****************************************** */
+app.get('/v1/lanchonete/combos', cors(), async function(request,response,next){
+    let allCombos = await controllerCombos.getListarCombos()
+
+    response.status(allCombos.status_code)
+    response.json(allCombos)
+})
+
+app.post('/v1/lanchonete/combo', cors(), bodyParserJSON, async function(request,response,next){
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultDados = await controllerCombos.setInserirCombos(dadosBody,contentType)
+
+
+    console.log(resultDados.status_code);
+    
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+    
+})
+
+app.delete('/v1/lanchonete/combo:id', cors(), async function(request, response, next){
+    let idCombo = request.params.id
+    let deleteCombo = await controllerCombos.setExcluirCombo(idCombo)
+
+    response.status(deleteCombo.status_code)
+    response.json(deleteCombo)
+})
+
+app.put('/v1/lanchonete/editeCombo/:id', cors(), bodyParserJSON, async function(request, response, next){
+    let contentType = request.headers['content-type']
+    let id_combo = request.params.id
+
+    let dadosBody = request.body
+    let resultDados = await controllerCombos.setAtualizarCombo(id_combo, contentType, dadosBody)
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+
+app.get('/v1/lanchonete/comboId/:id', cors(), async function(request, response, next){
+    let idCombo = request.params.id
+
+    let dadosCombo= await controllerCombos.getBuscarComboId(idCombo)
+
+    response.status(dadosCombo.status_code)
+    response.json(dadosCombo)
+})
+
+/*********************************************************************************************************** */
+
 app.listen(8080, function(){
     console.log('API funcionando e aguardando requisições')
 })
