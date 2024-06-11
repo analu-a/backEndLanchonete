@@ -349,9 +349,8 @@ app.get("/v1/Lanchonete/pedidos/:id", cors(), async function(request, response, 
     response.status(pedidos.status_code)
     response.json(pedidos)
 })
-    let enderecos = await 
-
-/***************************************************** combos ****************************************** */
+/**********************************************************************************************************/
+/***************************************************** combos ********************************************/
 app.get('/v1/lanchonete/combos', cors(), async function(request,response,next){
     let allCombos = await controllerCombos.getListarCombos()
 
@@ -403,7 +402,33 @@ app.get('/v1/lanchonete/comboId/:id', cors(), async function(request, response, 
 })
 
 /*********************************************************************************************************** */
-
+/******************************************pagamento***********************************************/
+app.get("/v1/Lanchonete/formasPagamento", cors(), async function(request, response, next){
+    let formasPagamento = await controllerPagamento.pegarFormaPagamento()
+    response.status(formasPagamento.status_code)
+    response.json(formasPagamento)
+})
+app.put("/v1/Lanchonete/editarFormasPagamento/:id", cors(), bodyParserJSON, async function(request, response, next){
+    let idFormasPagamento = request.params.id
+    let formasPagamento = request.body
+    let contentType = request.headers["content-type"]
+    let resultadoFormasPagamento = await controllerPagamento.atualizarFormasPagamento(formasPagamento, idFormasPagamento, contentType)
+    response.status(resultadoFormasPagamento.status_code)
+    response.json(resultadoFormasPagamento)
+})
+app.delete("/v1/Lanchonete/deletarFormasPagamento/:id", cors(), async function(request, response, next){
+    let idFormasPagamento = request.params.id
+    let resultadoFormasPagamento = await controllerPagamento.deletarFormasPagamento(idFormasPagamento)
+    response.status(resultadoFormasPagamento.status_code)
+    response.json(resultadoFormasPagamento)
+})
+app.post("/v1/Lanchonete/postarFormasPagamento/", cors(), bodyParserJSON, async function(request, response, next){
+    let formasPagamento = request.body
+    let contentType = request.headers["content-type"]
+    const resultadoFormasPagamento = await controllerPagamento.inserirFormasPagamento(formasPagamento, contentType)
+    response.status(resultadoFormasPagamento.status_code)
+    response.json(resultadoFormasPagamento)
+})
 app.listen(8080, function(){
     console.log('API funcionando e aguardando requisições')
 })
