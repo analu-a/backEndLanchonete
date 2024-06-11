@@ -373,7 +373,7 @@ app.post('/v1/lanchonete/combo', cors(), bodyParserJSON, async function(request,
     
 })
 
-app.delete('/v1/lanchonete/combo:id', cors(), async function(request, response, next){
+app.delete('/v1/lanchonete/combo/:id', cors(), async function(request, response, next){
     let idCombo = request.params.id
     let deleteCombo = await controllerCombos.setExcluirCombo(idCombo)
 
