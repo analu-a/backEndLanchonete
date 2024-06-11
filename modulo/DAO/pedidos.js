@@ -11,7 +11,7 @@ const pegarPedidos = async function(){
 }
 const atualizarPedidos = async function(idPedidos, pedidos){
     try{
-let sql = `update pedidos set horarioPedido = "${pedidos.horarioPedido}", valorTotal ="${pedidos.valorTotal}", formaEntrega = "${pedidos.formaEntrega}", dataPedido = "${pedidos.dataPedido}" where idPedidos = ${idPedidos}`
+let sql = `update pedidos set horarioPedido = "${pedidos.horarioPedido}", valorTotal ="${pedidos.valorTotal}", formaEntrega = "${pedidos.formaEntrega}", dataPedido = "${pedidos.dataPedido}", pagamentoId = ${pedidos.pagamentoId}, statusPedido = "${pedidos.statusPedido}" where idPedidos = ${idPedidos}`
         let resultadoPedidos = await prisma.$executeRawUnsafe(sql)
         return resultadoPedidos
     }catch(error){
@@ -29,7 +29,7 @@ const deletarPedidos = async function(idPedidos){
 }
 const inserirPedidos = async function(pedidos){
     try{
-      let sql = `insert into pedidos(horarioPedido, valorTotal, formaEntrega, dataPedido)values("${pedidos.horarioPedido}", "${pedidos.valorTotal}", "${pedidos.formaEntrega}", "${pedidos.dataPedido}")`
+      let sql = `insert into pedidos(horarioPedido, valorTotal, formaEntrega, dataPedido, pagamentoId, statusPedido)values("${pedidos.horarioPedido}", "${pedidos.valorTotal}", "${pedidos.formaEntrega}", "${pedidos.dataPedido}", ${pedidos.pagamentoId}, "${pedidos.statusPedido}")`
     let resultadoPedidos = await prisma.$executeRawUnsafe(sql)
     if(resultadoPedidos){
         return true

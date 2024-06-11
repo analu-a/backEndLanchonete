@@ -13,11 +13,11 @@ const atualizarUsuarios = async function(idUsuarios, usuarios){
     try{
         let sql
     if(usuarios.enderecoId == " " || usuarios.enderecoId == undefined || usuarios.enderecoId == null){
-        sql = `update usuario set nomeCliente = "${usuarios.nomeCliente}", dataNascimento ="${usuarios.dataNascimento}", email = "${usuarios.email}", senha = "${usuarios.senha}", enderecoId = null where idUser = ${idUsuarios}`
+        sql = `update usuario set nomeCliente = "${usuarios.nomeCliente}", dataNascimento ="${usuarios.dataNascimento}", email = "${usuarios.email}", senha = "${usuarios.senha}", enderecoId = null, fotoUsuario = "${usuarios.fotoUsuario}" where idUser = ${idUsuarios}`
         let resultadoUsuarios = await prisma.$executeRawUnsafe(sql)
         return resultadoUsuarios
     }else{
-        sql = `update usuario set nomeCliente = "${usuarios.nomeCliente}", dataNascimento ="${usuarios.dataNascimento}", email = "${usuarios.email}", senha = "${usuarios.senha}", enderecoId = ${usuarios.enderecoId} where idUser = ${idUsuarios}`
+        sql = `update usuario set nomeCliente = "${usuarios.nomeCliente}", dataNascimento ="${usuarios.dataNascimento}", email = "${usuarios.email}", senha = "${usuarios.senha}", enderecoId = ${usuarios.enderecoId}, fotoUsuario = "${usuarios.fotoUsuario}" where idUser = ${idUsuarios}`
         let resultadoUsuarios = await prisma.$executeRawUnsafe(sql)
         return resultadoUsuarios
     }
@@ -38,7 +38,7 @@ const colocarUsuarios = async function(usuarios){
     try{
         let sql
     if(usuarios.enderecoId == '' || usuarios.enderecoId == null || usuarios.enderecoId == undefined){
-        sql = `insert into usuario(nomeCliente, dataNascimento, email, senha, enderecoId)values("${usuarios.nomeCliente}", "${usuarios.dataNascimento}", "${usuarios.email}", "${usuarios.senha}", null)`
+        sql = `insert into usuario(nomeCliente, dataNascimento, email, senha, enderecoId, fotoUsuario)values("${usuarios.nomeCliente}", "${usuarios.dataNascimento}", "${usuarios.email}", "${usuarios.senha}", null, "${usuarios.fotoUsuario}")`
         let resultadoUsuarios = await prisma.$executeRawUnsafe(sql)
         if(resultadoUsuarios){
             return true
@@ -46,7 +46,7 @@ const colocarUsuarios = async function(usuarios){
             return false
         }
     }else{
-        sql = `insert into usuario(nomeCliente, dataNascimento, email, senha, enderecoId)values("${usuarios.nomeCliente}", "${usuarios.dataNascimento}", "${usuarios.email}", "${usuarios.senha}", "${usuarios.enderecoId}")`
+        sql = `insert into usuario(nomeCliente, dataNascimento, email, senha, enderecoId, fotoUsuario)values("${usuarios.nomeCliente}", "${usuarios.dataNascimento}", "${usuarios.email}", "${usuarios.senha}", "${usuarios.enderecoId}", "${usuarios.fotoUsuario}")`
         let resultadoUsuarios = await prisma.$executeRawUnsafe(sql)
         if(resultadoUsuarios){
             return true
