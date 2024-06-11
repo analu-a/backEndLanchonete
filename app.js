@@ -27,6 +27,7 @@ const controllerPedidos = require('./controller/pedidos_controller.js')
 const controllerprodutos = require('./controller/produtos_controller.js')
 const controllerPromocoes = require('./controller/promocoes_controller.js')
 const controllerUsuario = require('./controller/usuario_controller.js')
+const controllerProdutoCategoria = require('./controller/produto_categoria_controller.js')
 /*********************************************************************************/
 
 
@@ -402,6 +403,37 @@ app.get('/v1/lanchonete/comboId/:id', cors(), async function(request, response, 
     response.json(dadosCombo)
 })
 
+/*********************************************************************************************************** */
+
+/************************************************Produtos_categoria***************************************** */
+app.get('/v1/lanchonete/produtoCategorias', cors(), async function(request,response,next){
+    let allproductCate = await controllerProdutoCategoria.getListarProdutosCategorias()
+
+    response.status(allproductCate.status_code)
+    response.json(allproductCate)
+})
+
+app.post('/v1/lanchonete/produtoCategoria', cors(), bodyParserJSON, async function(request,response,next){
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultDados = await controllerProdutoCategoria.setInserirProdutosCategorias(dadosBody,contentType)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
+app.put('/v1/lanchonete/editeProdutoCategoria/:id', cors(), bodyParserJSON, async function(request, response, next){
+    let contentType = request.headers['content-type']
+    let idProduto_categoria = request.params.id
+
+    let dadosBody = request.body
+
+    let resultDados = await controllerProdutoCategoria.setAtualizarProdutoCategoria(idProduto_categoria, contentType, dadosBody)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
 /*********************************************************************************************************** */
 
 app.listen(8080, function(){
