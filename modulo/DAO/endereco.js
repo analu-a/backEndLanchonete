@@ -11,7 +11,7 @@ const pegarEnderecos = async function(){
 }
 const atualizarEnderecos = async function(enderecos, idEnderecos){
     try{
-        let sql = `update endereco set logradouro = "${enderecos.logradouro}", numeroCasa = ${enderecos.numeroCasa}", bairro = "${enderecos.bairro}", cidade = "${enderecos.cidade}", cep = "${enderecos.cep}" where idEndereco = ${idEnderecos}`
+        let sql = `update endereco set logradouro = "${enderecos.logradouro}", numeroCasa = "${enderecos.numeroCasa}", bairro = "${enderecos.bairro}", cidade = "${enderecos.cidade}", cep = "${enderecos.cep}" where idEndereco = ${idEnderecos}`
         let resultadoEnderecos = await prisma.$executeRawUnsafe(sql)
         return resultadoEnderecos
     }catch(error){

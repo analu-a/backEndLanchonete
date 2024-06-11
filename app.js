@@ -19,7 +19,7 @@ const bodyParserJSON = bodyParser.json()
 /*********************************************************************************/
 const controllerCategorias = require('./controller/categorias_controller.js')
 const controllerCombos = require('./controller/combos_controller.js')
-const controllerEndereco = require('./controller/endereco_controller.js')
+const controllerEnderecos = require('./controller/endereco_controller.js')
 const controllerfuncionarios = require('./controller/funcionarios_controller.js')
 const controllerIngredientes = require('./controller/ingredientes_controller.js')
 const controllerPagamento = require('./controller/pagamento_controller.js')
@@ -256,8 +256,99 @@ app.put('/v1/lanchonete/editePromocao/:id', cors(), bodyParserJSON, async functi
 /***********************************************************************************************************/
 /*****************************************************endereco**********************************************/
 app.get("/v1/Lanchonete/enderecos", cors(), async function(request, response, next){
-    let enderecos = await 
-
+    let enderecos = await controllerEnderecos.pegarEnderecos()
+    response.status(enderecos.status_code)
+    response.json(enderecos)
+})
+app.put("/v1/Lanchonete/editarEnderecos/:id", cors(), bodyParserJSON, async function(request, response, next){
+    let idEnderecos = request.params.id
+    let enderecos = request.body
+    let contentType = request.headers["content-type"]
+    let resultadoEnderecos = await controllerEnderecos.atualizarEnderecos(enderecos, idEnderecos, contentType)
+    response.status(resultadoEnderecos.status_code)
+    response.json(resultadoEnderecos)
+})
+app.delete("/v1/Lanchonete/deletarEnderecos/:id", cors(), async function(request, response, next){
+    let idEnderecos = request.params.id
+    let resultadoEnderecos = await controllerEnderecos.deletarEnderecos(idEnderecos)
+    response.status(resultadoEnderecos.status_code)
+    response.json(resultadoEnderecos)
+})
+app.post("/v1/Lanchonete/postarEnderecos/", cors(), bodyParserJSON, async function(request, response, next){
+    let enderecos = request.body
+    let contentType = request.headers["content-type"]
+    const resultadoEnderecos = await controllerEnderecos.inserirEnderecos(enderecos, contentType)
+    response.status(resultadoEnderecos.status_code)
+    response.json(resultadoEnderecos)
+})
+/*************************************************************************************************************/
+/*****************************************************usuarios**********************************************/
+app.get("/v1/Lanchonete/usuarios", cors(), async function(request, response, next){
+    let usuarios = await controllerUsuario.pegarUsuarios()
+    response.status(usuarios.status_code)
+    response.json(usuarios)
+})
+app.put("/v1/Lanchonete/editarUsuarios/:id", cors(), bodyParserJSON, async function(request, response, next){
+    let idUsuarios = request.params.id
+    let usuarios = request.body
+    let contentType = request.headers["content-type"]
+    let resultadoUsuarios = await controllerUsuario.atualizarUsuarios(usuarios, idUsuarios, contentType)
+    response.status(resultadoUsuarios.status_code)
+    response.json(resultadoUsuarios)
+})
+app.delete("/v1/Lanchonete/deletarUsuarios/:id", cors(), async function(request, response, next){
+    let idUsuarios = request.params.id
+    let resultadoUsuarios = await controllerUsuario.deletarUsuarios(idUsuarios)
+    response.status(resultadoUsuarios.status_code)
+    response.json(resultadoUsuarios)
+})
+app.post("/v1/Lanchonete/postarUsuarios/", cors(), bodyParserJSON, async function(request, response, next){
+    let usuarios = request.body
+    let contentType = request.headers["content-type"]
+    const resultadoUsuarios = await controllerUsuario.inserirUsuarios(usuarios, contentType)
+    response.status(resultadoUsuarios.status_code)
+    response.json(resultadoUsuarios)
+})
+app.get("/v1/Lanchonete/usuarios/:id", cors(), async function(request, response, next){
+    let idUsuarios = request.params.id
+    let usuarios = await controllerUsuario.pegarUsuarioPeloId(idUsuarios)
+    response.status(usuarios.status_code)
+    response.json(usuarios)
+})
+/*************************************************************************************************/
+/******************************************pedidos***********************************************/
+app.get("/v1/Lanchonete/pedidos", cors(), async function(request, response, next){
+    const pedidos = await controllerPedidos.buscarPedidos()
+    response.status(pedidos.status_code)
+    response.json(pedidos)
+})
+app.put("/v1/Lanchonete/editarPedidos/:id", cors(), bodyParserJSON, async function(request, response, next){
+    let idPedidos = request.params.id
+    let pedidos = request.body
+    let contentType = request.headers["content-type"]
+    let resultadoPedidos = await controllerPedidos.atualizarPedidos(idPedidos, pedidos, contentType)
+    response.status(resultadoPedidos.status_code)
+    response.json(resultadoPedidos)
+})
+app.delete("/v1/Lanchonete/deletarPedidos/:id", cors(), async function(request, response, next){
+    let idPedidos = request.params.id
+    let resultadoPedidos = await controllerPedidos.deletarPedidos(idPedidos)
+    response.status(resultadoPedidos.status_code)
+    response.json(resultadoPedidos)
+})
+app.post("/v1/Lanchonete/postarPedidos/", cors(), bodyParserJSON, async function(request, response, next){
+    let pedidos = request.body
+    let contentType = request.headers["content-type"]
+    const resultadoPedidos = await controllerPedidos.colocarPedidos(pedidos, contentType)
+    response.status(resultadoPedidos.status_code)
+    response.json(resultadoPedidos)
+})
+app.get("/v1/Lanchonete/pedidos/:id", cors(), async function(request, response, next){
+    let idPedidos = request.params.id
+    let pedidos = await controllerPedidos.pegarPedidoPeloId(idPedidos)
+    response.status(pedidos.status_code)
+    response.json(pedidos)
+})
 app.listen(8080, function(){
     console.log('API funcionando e aguardando requisições')
 })

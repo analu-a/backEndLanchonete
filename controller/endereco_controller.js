@@ -1,7 +1,8 @@
 const enderecosModelDAO = require("../modulo/DAO/endereco.js")
 const enderecosModuloConfig = require("../model/config.js")
 const pegarEnderecos = async function(){
-  let enderecosJSON = {}
+  try{
+    let enderecosJSON = {}
   const resultadoEnderecos = await enderecosModelDAO.pegarEnderecos()
   if(resultadoEnderecos){
     if(resultadoEnderecos.length > 0){
@@ -15,15 +16,18 @@ const pegarEnderecos = async function(){
   }else{
     return enderecosModuloConfig.ERROR_INTERNAL_SERVER_DB
   }
+}catch(error){
+  return enderecosModuloConfig.ERROR_INTERNAL_SERVER
 }
-const atualizarEnderecos = async function(enderecos, idEnderecos){
+}
+const atualizarEnderecos = async function(enderecos, idEnderecos, contentType){
   try{
     let enderecosJSON = {}
   if(String(contentType).toLowerCase() == 'application/json'){
     if(idEnderecos == " " || idEnderecos == undefined || isNaN(idEnderecos)){
       return enderecosModuloConfig.ERROR_INVALID_ID
     }else{
-      const enderecosPeloId = await enderecosModelDAO.atualizarEnderecos(enderecos, idEnderecos)
+      const enderecosPeloId = await enderecosModelDAO.buscarEnderecosPeloId(idEnderecos)
       if(enderecosPeloId){
         if(enderecosPeloId.length > 0){
           if(enderecos.logradouro == " " || enderecos.logradouro == undefined || enderecos.logradouro.length > 200 ||
@@ -59,7 +63,7 @@ const deletarEnderecos = async function(idEnderecos){
     if(idEnderecos == " " || idEnderecos == undefined || isNaN(idEnderecos)){
       return enderecosModuloConfig.ERROR_INVALID_ID
     }else{
-      const enderecosPeloId = await enderecosModelDAO(idEnderecos)
+      const enderecosPeloId = await enderecosModelDAO.buscarEnderecosPeloId(idEnderecos)
       if(enderecosPeloId){
         if(enderecosPeloId.length > 0){
           const enderecos = await enderecosModelDAO.deletarEnderecos(idEnderecos)
@@ -83,16 +87,13 @@ const inserirEnderecos = async function(enderecos, contentType){
   try{
     let enderecosJSON = {}
   if(String(contentType).toLowerCase() == 'application/json'){
-      const enderecosPeloId = await enderecosModelDAO.atualizarEnderecos(enderecos)
-      if(enderecosPeloId){
-        if(enderecosPeloId.length > 0){
           if(enderecos.logradouro == " " || enderecos.logradouro == undefined || enderecos.logradouro.length > 200 ||
           enderecos.numeroCasa == " " || enderecos.numeroCasa == undefined || enderecos.numeroCasa.length > 4 ||
           enderecos.bairro == " " || enderecos.bairro == undefined || enderecos.bairro.length > 20 ||
           enderecos.cidade == ' ' || enderecos.cidade == undefined || enderecos.cidade.length > 20 ||
           enderecos.cep == ' ' || enderecos.cep == undefined || enderecos.cep.length > 9){
             return enderecosModuloConfig.ERROR_REQUIRED_FIELDS}else{
-              let enderecos = await enderecosModelDAO.atualizarEnderecos(enderecos)
+              let enderecos = await enderecosModelDAO.inserirEnderecos(enderecos)
               if(enderecos){
                 let enderecoId = await enderecosModelDAO.retornarIdDoUltimoEnderecoInserido()
                 enderecosJSON.status = enderecosModuloConfig.SUCESS_EDITED_ITEM.status
@@ -105,14 +106,16 @@ const inserirEnderecos = async function(enderecos, contentType){
                 return enderecosModuloConfig.ERROR_INTERNAL_SERVER_DB
               }
             }
+          }else{
+            return enderecosModuloConfig.ERROR_CONTENT_TYPE
           }
-        }if(enderecosPeloId == false){
-          return enderecosModuloConfig.ERROR_NOT_FOUND
-        }
-    }else{
-      return enderecosModuloConfig.ERROR_CONTENT_TYPE
-    }
   }catch(error){
     return enderecosModuloConfig.ERROR_INTERNAL_SERVER
   }
+}
+module.exports = {
+  pegarEnderecos,
+  atualizarEnderecos,
+  deletarEnderecos,
+  inserirEnderecos
 }

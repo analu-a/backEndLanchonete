@@ -141,30 +141,32 @@ const setAtualizarIingrediente = async function (id, contentType, dadosIngredien
 }
 
 const getBuscarIngredienteId = async function (id) {
-
- 
-    let idIngrediente = id
-    let ingredienteJSON = {}
-
-    if (idIngrediente == '' || idIngrediente == undefined || isNaN(idIngrediente)) {
-        return message.ERROR_INVALID_ID
-    } else {
-        let dadosIngrediente = await ingredientesDAO.selectByIdIngredientes(idIngrediente)
-
-        if (dadosIngrediente) {
-            if (dadosIngrediente.length) {
-                ingredienteJSON.ingredientes = dadosIngrediente
-                ingredienteJSON.status_code = 200
-
-                return ingredienteJSON 
-
-            } else {
-                return message.ERROR_NOT_FOUND 
-            }
-
+    try{
+        let idIngrediente = id
+        let ingredienteJSON = {}
+    
+        if (idIngrediente == '' || idIngrediente == undefined || isNaN(idIngrediente)) {
+            return message.ERROR_INVALID_ID
         } else {
-            return message.ERROR_INTERNAL_SERVER_DB 
+            let dadosIngrediente = await ingredientesDAO.selectByIdIngredientes(idIngrediente)
+    
+            if (dadosIngrediente) {
+                if (dadosIngrediente.length) {
+                    ingredienteJSON.ingredientes = dadosIngrediente
+                    ingredienteJSON.status_code = 200
+    
+                    return ingredienteJSON 
+    
+                } else {
+                    return message.ERROR_NOT_FOUND 
+                }
+    
+            } else {
+                return message.ERROR_INTERNAL_SERVER_DB 
+            }
         }
+    }catch(error){
+        return message.ERROR_INTERNAL_SERVER
     }
 
 
