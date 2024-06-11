@@ -349,7 +349,7 @@ app.get("/v1/Lanchonete/pedidos/:id", cors(), async function(request, response, 
     response.status(pedidos.status_code)
     response.json(pedidos)
 })
-    let enderecos = await 
+    
 
 /***************************************************** combos ****************************************** */
 app.get('/v1/lanchonete/combos', cors(), async function(request,response,next){
