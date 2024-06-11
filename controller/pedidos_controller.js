@@ -33,7 +33,9 @@ const atualizarPedidos = async function(idPedidos, pedidos, contentType){
                 if(pedidos.horarioPedido == " " || pedidos.horarioPedido == undefined || pedidos.horarioPedido.length > 5 ||
                 pedidos.valorTotal == " " || pedidos.valorTotal == undefined || pedidos.valorTotal.length > 5 ||
                 pedidos.formaEntrega == " " || pedidos.formaEntrega == undefined || pedidos.formaEntrega.length > 45 ||
-                pedidos.dataPedido == ' ' || pedidos.dataPedido == undefined || pedidos.dataPedido.length > 10){
+                pedidos.dataPedido == ' ' || pedidos.dataPedido == undefined || pedidos.dataPedido.length > 10 ||
+                pedidos.pagamentoId =='' || pedidos.pagamentoId == undefined || isNaN(pedidos.pagamentoId) ||
+                pedidos.statusPedido =='' || pedidos.statusPedido ==undefined || pedidos.statusPedido.length>20){
                   return pedidosModuloConfig.ERROR_REQUIRED_FIELDS}else{
                     let pedidos = await pedidosModelDAO.atualizarPedidos(idPedidos, pedidos)
                     if(pedidos){
@@ -89,7 +91,9 @@ const colocarPedidos = async function(pedidos, contentType){
           if(pedidos.horarioPedido == " " || pedidos.horarioPedido == undefined || pedidos.horarioPedido.length > 5 ||
           pedidos.valorTotal == " " || pedidos.valorTotal == undefined || pedidos.valorTotal.length > 5 ||
           pedidos.formaEntrega == " " || pedidos.formaEntrega == undefined || pedidos.formaEntrega.length > 45 ||
-          pedidos.dataPedido == ' ' || pedidos.dataPedido == undefined || pedidos.dataPedido.length > 10){
+          pedidos.dataPedido == ' ' || pedidos.dataPedido == undefined || pedidos.dataPedido.length > 10 ||
+          pedidos.pagamentoId =='' || pedidos.pagamentoId == undefined || isNaN(pedidos.pagamentoId) ||
+                pedidos.statusPedido =='' || pedidos.statusPedido ==undefined || pedidos.statusPedido.length>20){
             return pedidosModuloConfig.ERROR_REQUIRED_FIELDS}else{
               let pedidos = await pedidosModelDAO.inserirPedidos(pedidos)
               if(pedidos){

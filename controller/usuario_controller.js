@@ -32,7 +32,8 @@ const atualizarUsuarios = async function(idUsuarios, usuarios, contentType){
                 if(usuarios.nomeCliente == " " || usuarios.nomeCliente == undefined || usuarios.nomeCliente.length > 250 ||
                 usuarios.dataNascimento == " " || usuarios.dataNascimento == undefined || usuarios.dataNascimento.length > 10 ||
                 usuarios.email == " " || usuarios.email == undefined || usuarios.email.length > 60 ||
-                usuarios.senha == ' ' || usuarios.senha == undefined || usuarios.senha.length > 8){
+                usuarios.senha == ' ' || usuarios.senha == undefined || usuarios.senha.length > 8 ||
+                usuarios.fotoUsuario =='' || usuariosModelDAO.fotoUsuario || undefined || usuarios.fotoUsuario.length>250){
                   return usuariosModuloConfig.ERROR_REQUIRED_FIELDS}else{
                       let dadosValidated = false
                       if(usuarios.enderecoId != " " || usuarios.enderecoId != null || usuarios.enderecoId != undefined){
@@ -96,7 +97,8 @@ const inserirUsuarios = async function(usuarios, contentType){
           if(usuarios.nomeCliente == " " || usuarios.nomeCliente == undefined || usuarios.nomeCliente.length > 200 ||
           usuarios.dataNascimento == " " || usuarios.dataNascimento == undefined || usuarios.dataNascimento.length > 4 ||
           usuarios.email == " " || usuarios.email == undefined || usuarios.email.length > 20 ||
-          usuarios.senha == ' ' || usuarios.senha == undefined || usuarios.senha.length > 20){
+          usuarios.senha == ' ' || usuarios.senha == undefined || usuarios.senha.length > 20 ||
+          usuarios.fotoUsuario =='' || usuarios.fotoUsuario == undefined || usuarios.fotoUsuario.length > 250){
             return usuariosModuloConfig.ERROR_REQUIRED_FIELDS}else{
                 let dadosValidated = false
                 if(usuarios.enderecoId != " " || usuarios.enderecoId != undefined || usuarios.enderecoId != null){

@@ -35,9 +35,15 @@ const atualizarFormasPagamento = async function(formasPagamento, idFormasPagamen
           formasPagamento.statusPagamento == " " || formasPagamento.statusPagamento == undefined || formasPagamento.statusPagamento.length > 10 ||
           formasPagamento.cpf == ' ' || formasPagamento.cpf == undefined || formasPagamento.cpf.length > 14){
             return formaPagamentoModuloConfig.ERROR_REQUIRED_FIELDS}else{
-                let dadosValidated = false
-                if(formasPagamento.cupom !=''  || formasPagamento.cupom != null || formasPagamento.cupom == undefined){}
-              let formasPagamento = await formaPagamentoModelDAO.atualizarFormasPagamento(formasPagamento, idFormasPagamento)
+              let formasPagamentoValidated = false
+                if(formasPagamento.cupom !=''  || formasPagamento.cupom != null || formasPagamento.cupom == undefined){
+                  if(formasPagamento.cupom.length > 45){
+                    formasPagamentoValidated = true
+                  }
+                  formasPagamentoValidated = true
+                }
+                if(formasPagamento){
+                  let formasPagamento = await formaPagamentoModelDAO.atualizarFormasPagamento(formasPagamento, idFormasPagamento)
               if(formasPagamento){
                 formaPagamentoJSON.status = formaPagamentoModuloConfig.SUCESS_EDITED_ITEM.status
                 formaPagamentoJSON.status_code = formaPagamentoModuloConfig.SUCESS_EDITED_ITEM.status_code
@@ -46,6 +52,7 @@ const atualizarFormasPagamento = async function(formasPagamento, idFormasPagamen
               }else{
                 return formaPagamentoModuloConfig.ERROR_INTERNAL_SERVER_DB
               }
+            }
             }
           }
         }if(formasPagamentoPeloId == false){
@@ -59,7 +66,7 @@ const atualizarFormasPagamento = async function(formasPagamento, idFormasPagamen
     return formaPagamentoModuloConfig.ERROR_INTERNAL_SERVER
   }
 }
-const deletarformasPagamento = async function(idFormasPagamento){
+const deletarFormasPagamento = async function(idFormasPagamento){
   try{
     if(idFormasPagamento == " " || idFormasPagamento == undefined || isNaN(idFormasPagamento)){
       return formaPagamentoModuloConfig.ERROR_INVALID_ID
@@ -67,7 +74,7 @@ const deletarformasPagamento = async function(idFormasPagamento){
       const formasPagamentoPeloId = await formaPagamentoModelDAO.buscarFormasPagamentoPeloId(idFormasPagamento)
       if(formasPagamentoPeloId){
         if(formasPagamentoPeloId.length > 0){
-          const formasPagamento = await formaPagamentoModelDAO.deletarformasPagamento(idFormasPagamento)
+          const formasPagamento = await formaPagamentoModelDAO.deletarFormasPagamento(idFormasPagamento)
           if(formasPagamento){
             return formaPagamentoModuloConfig.SUCESS_DELETED_ITEM
           }else{
@@ -84,7 +91,7 @@ const deletarformasPagamento = async function(idFormasPagamento){
     return formaPagamentoModuloConfig.ERROR_INTERNAL_SERVER
   }
 }
-const inserirformasPagamento = async function(formasPagamento, contentType){
+const inserirFormasPagamento = async function(formasPagamento, contentType){
   try{
     let formaPagamentoJSON = {}
   if(String(contentType).toLowerCase() == 'application/json'){
@@ -94,7 +101,7 @@ const inserirformasPagamento = async function(formasPagamento, contentType){
           formasPagamento.cidade == ' ' || formasPagamento.cidade == undefined || formasPagamento.cidade.length > 20 ||
           formasPagamento.cep == ' ' || formasPagamento.cep == undefined || formasPagamento.cep.length > 9){
             return formaPagamentoModuloConfig.ERROR_REQUIRED_FIELDS}else{
-              let formasPagamento = await formaPagamentoModelDAO.inserirformasPagamento(formasPagamento)
+              let formasPagamento = await formaPagamentoModelDAO.inserirFormasPagamento(formasPagamento)
               if(formasPagamento){
                 let enderecoId = await formaPagamentoModelDAO.retornarIdDoUltimoEnderecoInserido()
                 formaPagamentoJSON.status = formaPagamentoModuloConfig.SUCESS_EDITED_ITEM.status
