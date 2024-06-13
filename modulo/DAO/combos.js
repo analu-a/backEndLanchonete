@@ -90,7 +90,7 @@ const atualizarCombos = async function(dadosCombos, idCombo){
         precoCombo= '${dadosCombos.precoCombo}',
         descricaoCombo= '${dadosCombos. descricaoCombo}'
            
-        where idCombos = ${idCombo}`
+        where idCombo = ${idCombo}`
 
 
         let result = await prisma.$executeRawUnsafe(sql)

@@ -96,7 +96,7 @@ const setAtualizarCombo = async function(id, contentType, dadosCombo){
             return message.ERROR_INVALID_ID
         } else {
     
-            let validaId = await combosDAO.selectByIdProdutos(idCombo)
+            let validaId = await combosDAO.selectByIdCombos(idCombo)
     
             if (validaId == false) {
                 
@@ -112,7 +112,7 @@ const setAtualizarCombo = async function(id, contentType, dadosCombo){
                     return message.ERROR_REQUIRED_FIELDS
                 } else {
     
-                 let novoCombo= await combosDAO.atualizarProdutos(dadosCombo, idCombo)
+                 let novoCombo= await combosDAO.atualizarCombos(dadosCombo, idCombo)
     
                  if (novoCombo) {
                     
@@ -138,7 +138,6 @@ const setAtualizarCombo = async function(id, contentType, dadosCombo){
     
     } catch (error) {
       
-        
         return message.ERROR_INTERNAL_SERVER
     }
     }
@@ -153,7 +152,7 @@ const getBuscarComboId = async function (id) {
     if (idCombo== '' || idCombo== undefined || isNaN(idCombo)) {
         return message.ERROR_INVALID_ID
     } else {
-        let dadosCombo = await combosDAO.selectByIdProdutos(idCombo)
+        let dadosCombo = await combosDAO.selectByIdCombos(idCombo)
 
         if (dadosCombo) {
             if (dadosCombo.length) {
