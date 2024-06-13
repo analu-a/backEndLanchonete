@@ -48,6 +48,7 @@ const colocarUsuarios = async function(usuarios){
     }else{
         sql = `insert into usuario(nomeCliente, dataNascimento, email, senha, enderecoId, fotoUsuario)values("${usuarios.nomeCliente}", "${usuarios.dataNascimento}", "${usuarios.email}", "${usuarios.senha}", "${usuarios.enderecoId}", "${usuarios.fotoUsuario}")`
         let resultadoUsuarios = await prisma.$executeRawUnsafe(sql)
+        console.log(sql)
         if(resultadoUsuarios){
             return true
         }else{

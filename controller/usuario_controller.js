@@ -9,6 +9,7 @@ const pegarUsuarios = async function(){
             usuariosJSON.status_code = 200
         usuariosJSON.quantidade = resultadoUsuarios.length
         usuariosJSON.usuarios = resultadoUsuarios
+        return usuariosJSON
         }else{
             return usuariosModuloConfig.ERROR_NOT_FOUND
         }
@@ -95,26 +96,26 @@ const inserirUsuarios = async function(usuarios, contentType){
         let usuariosJSON = {}
   if(String(contentType).toLowerCase() == 'application/json'){
           if(usuarios.nomeCliente == " " || usuarios.nomeCliente == undefined || usuarios.nomeCliente.length > 200 ||
-          usuarios.dataNascimento == " " || usuarios.dataNascimento == undefined || usuarios.dataNascimento.length > 4 ||
+          usuarios.dataNascimento == " " || usuarios.dataNascimento == undefined || usuarios.dataNascimento.length > 10 ||
           usuarios.email == " " || usuarios.email == undefined || usuarios.email.length > 20 ||
           usuarios.senha == ' ' || usuarios.senha == undefined || usuarios.senha.length > 20 ||
           usuarios.fotoUsuario =='' || usuarios.fotoUsuario == undefined || usuarios.fotoUsuario.length > 250){
             return usuariosModuloConfig.ERROR_REQUIRED_FIELDS}else{
                 let dadosValidated = false
-                if(usuarios.enderecoId != " " || usuarios.enderecoId != undefined || usuarios.enderecoId != null){
+                if(usuarios.enderecoId != "" || usuarios.enderecoId != undefined || usuarios.enderecoId != null){
                     dadosValidated = true
                 }else{
                     return usuariosModuloConfig.ERROR_REQUIRED_FIELDS
                 }
                 if(dadosValidated){
-                    let usuarios = await usuariosModelDAO.colocarUsuarios(usuarios)
-              if(usuarios){
+                    let usuariosNovo = await usuariosModelDAO.colocarUsuarios(usuarios)
+              if(usuariosNovo){
                 let usuariosId = await usuariosModelDAO.retornarIdDoUltimoUsuarioInserido()
-                usuariosJSON.status = usuariosModuloConfig.SUCESS_EDITED_ITEM.status
-                usuariosJSON.status_code = usuariosModuloConfig.SUCESS_EDITED_ITEM.status_code
-                usuariosJSON.message = usuariosModuloConfig.SUCESS_EDITED_ITEM.message
-                usuariosJSON.usuarios = usuarios
-                usuariosJSON.usuarios.id = usuariosId[0].idUser
+                usuariosJSON.status = usuariosModuloConfig.SUCESS_CREATED_ITEM.status
+                usuariosJSON.status_code = usuariosModuloConfig.SUCESS_CREATED_ITEM.status_code
+                usuariosJSON.message = usuariosModuloConfig.SUCESS_CREATED_ITEM.message
+                usuariosJSON.usuarios = usuariosNovo
+                usuariosJSON.usuarios.id = usuariosId[0]
                 return usuariosJSON
               }else{
                 return usuariosModuloConfig.ERROR_INTERNAL_SERVER_DB
@@ -125,6 +126,7 @@ const inserirUsuarios = async function(usuarios, contentType){
             return usuariosModuloConfig.ERROR_CONTENT_TYPE
           }
         }catch(error){
+          console.log(error)
             return usuariosModuloConfig.ERROR_INTERNAL_SERVER
         }
 }
