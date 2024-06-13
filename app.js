@@ -254,6 +254,17 @@ app.put('/v1/lanchonete/editePromocao/:id', cors(), bodyParserJSON, async functi
     response.status(resultDados.status_code)
     response.json(resultDados)
 })
+
+
+app.get('/v1/lanchonete/promocoesId/:id', cors(), async function(request, response, next){
+    let idPromocao = request.params.id
+
+    let dadosPromocao= await controllerPromocoes.getBuscarpromocoesId(idPromocao)
+
+    response.status(dadosPromocao.status_code)
+    response.json(dadosPromocao)
+})
+
 /***********************************************************************************************************/
 /*****************************************************endereco**********************************************/
 app.get("/v1/Lanchonete/enderecos", cors(), async function(request, response, next){

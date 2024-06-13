@@ -137,10 +137,41 @@ const setAtualizarPromocao = async function(id, contentType, dadosPromocoes){
         return message.ERROR_INTERNAL_SERVER
     }
     }
+
+    const getBuscarpromocoesId = async function (id) {
+
+ 
+        let idPromocoes = id
+        let promocoesJSON = {}
+    
+        if (idPromocoes == '' || idPromocoes == undefined || isNaN(idPromocoes)) {
+            return message.ERROR_INVALID_ID
+        } else {
+            let dadosPromocoes = await promocoesDAO.selectByIdPromocoes(idPromocoes)
+    
+            if (dadosPromocoes) {
+                if (dadosPromocoes.length) {
+                    promocoesJSON.promocoes = dadosPromocoes
+                    promocoesJSON.status_code = 200
+    
+                    return promocoesJSON 
+    
+                } else {
+                    return message.ERROR_NOT_FOUND 
+                }
+    
+            } else {
+                return message.ERROR_INTERNAL_SERVER_DB 
+            }
+        }
+    
+    
+    }
     
     module.exports = {
         setAtualizarPromocao,
         setInserirPromocoes,
         getListarPromocoes,
-        setExcluirPromocao
+        setExcluirPromocao,
+        getBuscarpromocoesId
     }
