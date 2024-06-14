@@ -102,6 +102,8 @@ const atualizarPromocoes = async function(dadospromocoes, idPromocoes){
 }
 
 
+
+
 module.exports ={
     selectAllPromocoes,
     deletePromocoes,

@@ -254,6 +254,17 @@ app.put('/v1/lanchonete/editePromocao/:id', cors(), bodyParserJSON, async functi
     response.status(resultDados.status_code)
     response.json(resultDados)
 })
+
+
+app.get('/v1/lanchonete/promocoesId/:id', cors(), async function(request, response, next){
+    let idPromocao = request.params.id
+
+    let dadosPromocao= await controllerPromocoes.getBuscarpromocoesId(idPromocao)
+
+    response.status(dadosPromocao.status_code)
+    response.json(dadosPromocao)
+})
+
 /***********************************************************************************************************/
 /*****************************************************endereco**********************************************/
 app.get("/v1/Lanchonete/enderecos", cors(), async function(request, response, next){
@@ -350,14 +361,11 @@ app.get("/v1/Lanchonete/pedidos/:id", cors(), async function(request, response, 
     response.status(pedidos.status_code)
     response.json(pedidos)
 })
-<<<<<<< HEAD
-    
 
-/***************************************************** combos ****************************************** */
-=======
 /**********************************************************************************************************/
+
 /***************************************************** combos ********************************************/
->>>>>>> e5d814f0c4ac0676061e80aa9e052b79018de279
+
 app.get('/v1/lanchonete/combos', cors(), async function(request,response,next){
     let allCombos = await controllerCombos.getListarCombos()
 
@@ -409,7 +417,6 @@ app.get('/v1/lanchonete/comboId/:id', cors(), async function(request, response, 
 })
 
 /*********************************************************************************************************** */
-<<<<<<< HEAD
 
 /************************************************Produtos_categoria***************************************** */
 app.get('/v1/lanchonete/produtoCategorias', cors(), async function(request,response,next){
@@ -442,7 +449,7 @@ app.put('/v1/lanchonete/editeProdutoCategoria/:id', cors(), bodyParserJSON, asyn
 })
 /*********************************************************************************************************** */
 
-=======
+
 /******************************************pagamento***********************************************/
 app.get("/v1/Lanchonete/formasPagamento", cors(), async function(request, response, next){
     let formasPagamento = await controllerPagamento.pegarFormaPagamento()
@@ -470,7 +477,7 @@ app.post("/v1/Lanchonete/postarFormasPagamento/", cors(), bodyParserJSON, async 
     response.status(resultadoFormasPagamento.status_code)
     response.json(resultadoFormasPagamento)
 })
->>>>>>> e5d814f0c4ac0676061e80aa9e052b79018de279
+
 app.listen(8080, function(){
     console.log('API funcionando e aguardando requisições')
 })
