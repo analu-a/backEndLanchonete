@@ -8,7 +8,7 @@ const pegarEnderecos = async function(){
     if(resultadoEnderecos.length > 0){
       enderecosJSON.enderecos = resultadoEnderecos
       enderecosJSON.quantidade = resultadoEnderecos.length
-      enderecosJSON.status = 200
+      enderecosJSON.status_code = 200
       return enderecosJSON
     }else{
       return enderecosModuloConfig.ERROR_NOT_FOUND
